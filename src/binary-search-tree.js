@@ -68,9 +68,9 @@ class BinarySearchTree {
       let found = false
 
       while(current && !found){
-            if(data < current.value){
+            if(data < current.data){
               current = current.left
-             } else if(data > current.value){
+             } else if(data > current.data){
                 current = current.right
              } else {
                   found = current
