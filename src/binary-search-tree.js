@@ -84,24 +84,61 @@ class BinarySearchTree {
   }
 
   remove(data) {
-    let current = this.roots;
-    let found = false;
-    while(current && !found){
-          if(data < current.value){
-            current = current.left
-           } else if(data > current.value){
-              current = current.right
-           } else {
-                found = current
-           }
-          }
+    this.roots = this.removeNode(this.roots, data);
+}
 
-      if(!found) {
-        return null
-      }
+findMinNode(node) {
+  return node.left ? this.findMinNode(node.left) : node;
+}
 
-      return this;
-  }
+removeNode(node, data) {
+    if (node) {
+        if (node.data > data) {
+            node.left = this.removeNode(node.left, data);
+            return node;
+        } else if (node.data < data) {
+            node.right = this.removeNode(node.right, data);
+            return node;
+        } else {
+            if (!node.left && !node.right) {
+                return this.removeLeafNode(node);
+            }
+
+            if (!node.left) {
+                return this.removeNodeWithoutLeftChild(node);
+            } else if (!node.right) {
+                return this.removeNodeWithoutRightChild(node);
+            }
+
+            return this.removeNodeWithTwoChildren(node);
+        }
+    } else {
+        return null;
+    }
+}
+
+removeNodeWithTwoChildren(node) {
+    const newNode = this.findMinNode(node.right);
+    node.data = newNode.data;
+    node.right = this.removeNode(node.right, newNode.data);
+    return node;
+}
+
+removeNodeWithoutLeftChild(node) {
+    node = node.right;
+    return node;
+}
+
+
+removeNodeWithoutRightChild(node) {
+    node = node.left;
+    return node;
+}
+
+removeLeafNode(node) {
+    node = null;
+    return node;
+}
 
   min() {
   if(this.roots.data==null){
