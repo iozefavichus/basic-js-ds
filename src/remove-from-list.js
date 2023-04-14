@@ -23,45 +23,27 @@ const { ListNode } = require('../extensions/list-node.js');
  * }
  */
 function removeKFromList(l, k ) {
+  if(l == null){
+    return l;
+    }
 
-  let deletedNode = null;
-
-  // // Если head должен быть удален, то делаем следующий узел новым head.
-  while (l.head && l.head.value === k) {
-    deletedNode = l.head;
-
-  // // Переназначаем следующий за head узел на новый head.
-    l.head = l.head.next;
-  }
-
-  let currentNode = l.head;
-
-  // // Если следующий узел должен быть удален,
-  // // делаем узел через один, следующим для проверки.
-  // // Перебираем все узлы и удаляем их, если их значение равно указанному.
-  if (currentNode !== null) {
-   while (currentNode.next) {
-      if (currentNode.next.value === k) {
-        deletedNode = currentNode.next;
-        // Перезаписываем, чтобы узел через один стал следующим узлом.
-        currentNode.next = currentNode.next.next;
-      } else {
-        currentNode = currentNode.next;
+   while(l.value == k){
+      l = l.next;
+    }
+    let thisNode = l;
+    let nextNode = thisNode.next;
+    while(nextNode != null){
+      if(nextNode.value == k){
+          thisNode.next = nextNode.next;
+          if(thisNode.next == null)
+              break;
       }
-   }
+      thisNode = thisNode.next;
+      nextNode = thisNode.next;
+    }
+    return l;
   }
 
-  // // Проверяем, должен ли tail быть удален.
-  // // Так как, если в цикле мы удаляем последний узел,
-  // // то с предпоследнего узла убираем только ссылку на него.
-  // // Поэтому делаем проверку на его удаление с "tail".
-  if (l.tail && l.tail.value === k) {
-    // в данном случае currentNode это или предпоследний узел или head.
-    l.tail = currentNode;
-  }
-
-  return l;
-}
 
 module.exports = {
   removeKFromList
