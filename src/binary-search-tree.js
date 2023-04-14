@@ -15,7 +15,7 @@ class BinarySearchTree {
     if(this.roots==null){
       return null
     }
-    return this.roots.data;
+    return this.roots;
   }
 
   add(data){
@@ -62,7 +62,7 @@ class BinarySearchTree {
   }
 
   find(data) {
-    if(!this.root) return false
+    if(!this.roots) return false
 
       let current = this.roots
       let found = false
