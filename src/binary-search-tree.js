@@ -9,15 +9,13 @@ const { Node } = require('../extensions/list-tree.js');
 class BinarySearchTree {
   constructor(){
     this.root = null;
-    // this.left = null;
-    // this.right = null;
   }
 
-  root() {
+  root(){
     return this.root;
   }
 
-  add(data) {
+  add(data){
     let newNode = new Node(data);
 
     if(this.root === null){
@@ -82,16 +80,53 @@ class BinarySearchTree {
   }
 
   remove(data) {
-    this.root = this.removeNode(this.root, data);
+    let current = this.root
+    let found = false
+    while(current && !found){
+          if(data < current.value){
+            current = current.left
+           } else if(data > current.value){
+              current = current.right
+           } else {
+                found = current
+           }
+          }
+
+      if(!found) {
+        return null
+      }
+
+      return this;
   }
 
   min() {
 
-  }
+  if(this.root.left === null){
+    return this.root;
+  } else {
+    let current = this.root;
+    while(current.left){
+        current = current.left
+      }
+      return current.data;
+    }
+    }
 
-  max() {
-  }
+
+  max(){
+
+    if(this.root.right === null){
+      return this.root;
+    } else{
+      let current = this.root;
+      while(current.right){
+          current = current.right
+      }
+      return current.data;
+      }
+    }
 }
+
 
 module.exports = {
   BinarySearchTree
