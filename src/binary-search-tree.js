@@ -8,22 +8,25 @@ const { Node } = require('../extensions/list-tree.js');
 */
 class BinarySearchTree {
   constructor(){
-    this.root = null;
+    this.roots = null;
   }
 
   root(){
-    return this.root;
+    if(this.roots==null){
+      return null
+    }
+    return this.roots.data;
   }
 
   add(data){
     let newNode = new Node(data);
 
-    if(this.root === null){
-       this.root = newNode;
+    if(this.roots === null){
+       this.roots = newNode;
         return this;
     }
 
-    let current = this.root;
+    let current = this.roots;
 
     while(current){
             if(data === current.data) return undefined;
@@ -44,7 +47,7 @@ class BinarySearchTree {
   }
 
   has(data) {
-    let current = this.root;
+    let current = this.roots;
     while(current){
       if(data === current.data) {
         return true;
@@ -61,8 +64,9 @@ class BinarySearchTree {
   find(data) {
     if(!this.root) return false
 
-      let current = this.root
+      let current = this.roots
       let found = false
+
       while(current && !found){
             if(data < current.value){
               current = current.left
@@ -80,8 +84,8 @@ class BinarySearchTree {
   }
 
   remove(data) {
-    let current = this.root
-    let found = false
+    let current = this.roots;
+    let found = false;
     while(current && !found){
           if(data < current.value){
             current = current.left
@@ -100,11 +104,13 @@ class BinarySearchTree {
   }
 
   min() {
-
-  if(this.root.left === null){
-    return this.root;
+  if(this.roots.data==null){
+    return null
+  }
+  if(this.roots.left === null){
+    return this.roots;
   } else {
-    let current = this.root;
+    let current = this.roots;
     while(current.left){
         current = current.left
       }
@@ -114,11 +120,13 @@ class BinarySearchTree {
 
 
   max(){
-
-    if(this.root.right === null){
-      return this.root;
+    if(this.roots.data==null){
+      return null
+    }
+    if(this.roots.right === null){
+      return this.roots;
     } else{
-      let current = this.root;
+      let current = this.roots;
       while(current.right){
           current = current.right
       }
