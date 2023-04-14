@@ -1,6 +1,6 @@
 const { NotImplementedError } = require('../extensions/index.js');
 
-// const { ListNode } = require('../extensions/list-node.js');
+const { ListNode } = require('../extensions/list-node.js');
 
 /**
  * Implement the Queue with a given interface via linked list (use ListNode extension above).
@@ -14,23 +14,18 @@ const { NotImplementedError } = require('../extensions/index.js');
  * queue.getUnderlyingList() // returns { value: 3, next: null }
  */
 class Queue {
+
 constructor(){
   this.first = null;
   this.last = null;
   this.size = 0;
 }
   getUnderlyingList() {
-    let curr = this.first;
-    let str = "";
-    while (curr) {
-        str += curr.element + " ";
-        curr = curr.next;
-    }
-    return  str;
+    return this.first;
   }
 
   enqueue(value) {
-    const newNode = new Node(value);
+    const newNode = new ListNode(value);
 
     if (this.size===0) {
       this.first = newNode
@@ -45,7 +40,7 @@ constructor(){
   }
 
   dequeue() {
-    if (this.isEmpty()) return null
+    if (this.size===0) return null
     const itemToBeRemoved = this.first
 
     if (this.first === this.last) {
@@ -53,7 +48,7 @@ constructor(){
     }
     this.first = this.first.next
     this.size--
-    return itemToBeRemoved
+    return itemToBeRemoved.value;
 
   }
 }
